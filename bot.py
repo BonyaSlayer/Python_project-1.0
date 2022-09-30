@@ -27,10 +27,15 @@ def button_message(message):
 
 
 @bot.message_handler(content_types='text')
-def message_reply(message):
-    if message.text=="Вывести все контакты":        
-        chat_id = message.chat.id
-    bot.send_message(chat_id, '\n'.join(map(str, tel_data)))
-    #elif message.text=="Добавить контакт":
+def message_print_all(message):
+    if message.text=="Вывести все контакты":             
+        bot.send_message(message.chat.id, '\n'.join(map(str, tel_data)))    
+
+def get_text(message):
+    if message.text=="Добавить контакт":
+        bot.send_message(message.chat.id, 'input number')
+        number = message.text
+        id.import_data(number)
+
 
 bot.infinity_polling()    
