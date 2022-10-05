@@ -8,12 +8,12 @@ import search_db as sd
 import export_db as ed
 import import_db as id
 
+#сюда можете ввести свой токен!
 bot = telebot.TeleBot('5655531070:AAHuI7gAGDelJnJc2EJWlXQ0uCaRiHVLzwo')
 
 name = ''
 surname = ''
 phonenumber = 0
-filtered_list = []
 search_item = ''
 
 @bot.message_handler(commands=['start'])
@@ -41,7 +41,7 @@ def message_reply(message):
         elif message.text=="Вывести список":       
             bot.send_message(message.from_user.id, get_data())
         elif message.text=="Поиск контакта":
-            bot.send_message(message.from_user.id, 'Введите имя/телефон')
+            bot.send_message(message.from_user.id, 'Введите фамилию/телефон')
             bot.register_next_step_handler(message, search_number)        
                         
 
@@ -81,7 +81,7 @@ def callback_worker(call):
         contact = name + ';' + surname + ';' + phonenumber
         save_contact(contact)        
     elif call.data == 'no':
-        bot.send_message(call.message.chat.id, 'Упс, что-то пошло не так 😭\nВведите /start для перезапуска бота')
+        bot.send_message(call.message.chat.id, 'Попробуйте снова!')
 
 def save_contact(data):
     with open('db.csv', 'a+') as file:
